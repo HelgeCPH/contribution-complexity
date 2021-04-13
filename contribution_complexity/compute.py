@@ -2,8 +2,8 @@
 This program computes the complexity of a Git contribution, i.e. one or more commits.
 
 Usage:
-  contribcompl commits <repository> <commit_sha>...
-  contribcompl issue <repository> <issue_regex>
+  contribcompl commits [-v | --verbose] <repository> <commit_sha>...
+  contribcompl issue [-v | --verbose] <repository> <issue_regex>
   contribcompl -h | --help
   contribcompl --version
 
@@ -20,10 +20,14 @@ from docopt import docopt
 from contribution_complexity import __version__
 from pathlib import Path
 from urllib.parse import urlparse
-from contribution_complexity.metrics import compute_contrib_compl
+from contribution_complexity.metrics import (
+    compute_contrib_compl,
+    toggle_verbose_output,
+)
 
 
 TMP = tempfile.gettempdir()
+VERBOSE = False
 
 
 def git_is_available():
@@ -88,6 +92,9 @@ def run():
 
     arguments = docopt(__doc__, version=__version__)
 
+    if arguments["-v"] == True or arguments["--verbose"] == True:
+        toggle_verbose_output()
+
     path_to_repo = arguments["<repository>"]
     if not (is_git_url(path_to_repo) or is_git_dir(path_to_repo)):
         print(__doc__)
@@ -101,6 +108,7 @@ def run():
     elif arguments["issue"]:
         issue_re = arguments["<issue_regex>"]
         commit_shas = find_commits_for_issue(path_to_repo, issue_re)
+        # print(commit_shas)
 
     contribcompl = compute_contrib_compl(path_to_repo, commit_shas)
     print(contribcompl)

@@ -30,10 +30,26 @@ MOD_COMPL_WEIGHTS = {
     ModificationComplexity.HIGH: 3125,
 }
 
+# MODIFICATION_MODEL = (
+#     (-1, 195),
+#     (195, 390),
+#     (390, 781),
+#     (781, 1562),
+#     (3125, math.inf),
+# )
+
+# MODIFICATION_MODEL = (
+#     (-1, 195),
+#     (195, 390),
+#     (390, 781),
+#     (781, 1562),
+#     (1562, math.inf),
+# )
+
 MODIFICATION_MODEL = (
-    (-1, 195),
-    (195, 390),
+    (-1, 390),
     (390, 781),
     (781, 1562),
+    (1562, 3125),
     (3125, math.inf),
 )

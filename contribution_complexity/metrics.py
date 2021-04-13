@@ -9,6 +9,14 @@ from contribution_complexity.complexity_types import (
     ContributionComplexity,
 )
 
+VERBOSE = False
+
+
+def toggle_verbose_output():
+    global VERBOSE
+    VERBOSE = not VERBOSE
+
+
 # Load custom models from configuration file in HOME unless it does not exist,
 # is erroneous, etc,
 try:
@@ -169,6 +177,12 @@ def aggregate_complexity_vals(complexities):
     return ModificationComplexity(compl_val)
 
 
+def aggregate_final_complexity_vals(complexities):
+    compl_vals = [el.value for el in complexities]
+    compl_val = int(round(mean(compl_vals), 0))
+    return ContributionComplexity(compl_val)
+
+
 def discrete_complexity_mod(mod):
     if (mod.change_type == ModificationType.DELETE) or (
         mod.change_type == ModificationType.COPY
@@ -265,7 +279,7 @@ def stats_per_commit(path_to_repo, commit):
         discrete_complexity_mod(m) for m in commit.modifications
     ]
 
-    return {
+    result = {
         "no_modified_files": no_modified_files,
         # "no_files_at_commit": no_files_at_commit,
         # "file_change_ratio": file_change_ratio,
@@ -278,6 +292,15 @@ def stats_per_commit(path_to_repo, commit):
         # "no_modificationtypes": no_modificationtypes,
         "discr_compl_mods": discr_compl_mods,
     }
+
+    if VERBOSE:
+        if commit.modifications:
+            print("+", commit.hash)
+        else:
+            print("-", commit.hash)
+
+        print(result)
+    return result
 
 
 def compute_metrics(path_to_repo, commit_shas):
@@ -313,7 +336,7 @@ def compute_metrics(path_to_repo, commit_shas):
 
     mods_compl_freq = dict(Counter(discr_compl_mods))
 
-    return {
+    result = {
         "no_modified_files": no_modified_files,
         "no_lines": no_lines,
         "no_added": no_added,
@@ -325,11 +348,18 @@ def compute_metrics(path_to_repo, commit_shas):
         "mods_compl_freq": mods_compl_freq,
     }
 
+    if VERBOSE:
+        print(result)
+
+    return result
+
 
 def compute_contrib_compl(path_to_repo, commit_shas):
     stats = compute_metrics(path_to_repo, commit_shas)
     dstats = discretize_contrib_stats(stats)
-    return aggregate_complexity_vals(dstats)
+    if VERBOSE:
+        print(dstats)
+    return aggregate_final_complexity_vals(dstats)
 
 
 # def discretize_stats(stats):
