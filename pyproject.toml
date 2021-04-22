@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "contribution-complexity"
-version = "0.1.0"
+version = "0.1.1"
 description = " Tool to compute the complexity of a Git contributions "
 authors = ["HelgeCPH <ropf@itu.dk>"]
 readme = "README.md"
