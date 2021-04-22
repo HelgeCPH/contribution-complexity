@@ -17,7 +17,7 @@ classifiers = [
     "Topic :: Software Development", 
     "Topic :: Utilities",
 ]
-exclude = ["paper/", "data/"]
+exclude = ["paper/", "data/", "experiment/"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -29,6 +29,10 @@ toml = "^0.10.2"
 pytest = "^5.2"
 ipython = "^7.22.0"
 pandas = "^1.2.3"
+PyGithub = "^1.54.1"
+matplotlib = "^3.4.1"
+scipy = { version = "^1.6.2", python = ">=3.9,<3.10" }
+tabulate = "^0.8.9"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -1,8 +1,6 @@
-paper/
-data/
-
-
-.vscode/
+.DS_Store
+.vagrant/
+metrics_bkp.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

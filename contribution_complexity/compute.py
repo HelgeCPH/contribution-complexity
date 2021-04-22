@@ -12,7 +12,7 @@ Options:
   --version     Show version.
   --output=<kind>  Kind of output, either csv or verbose.
 """
-
+import sys
 import tempfile
 import subprocess
 from shutil import which

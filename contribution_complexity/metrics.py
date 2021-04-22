@@ -25,7 +25,6 @@ try:
     exec(_home.read_text())
     model_names = [
         "LINE_MODEL",
-        "CHURN_MODEL",
         "HUNK_MODEL",
         "METHOD_MODEL",
         "FILE_MODEL",
@@ -49,7 +48,6 @@ except Exception:
 if use_default_model:
     from contribution_complexity.default_models import (
         LINE_MODEL,
-        CHURN_MODEL,
         HUNK_MODEL,
         METHOD_MODEL,
         FILE_MODEL,
@@ -161,7 +159,6 @@ def map_mods_to_compls(driller_commit):
     compl_per_mods = [aggregate_mod_compl_vals(m) for m in dis_mod_metrics]
     # We want to map delete and copy modifications always to complexity low
     compl_per_mods = overwrite_previous_assessment(driller_mods, compl_per_mods)
-
     # for m, met, dmet, compl in zip(
     #     driller_mods, mod_metrics, dis_mod_metrics, compl_per_mods
     # ):
@@ -288,7 +285,7 @@ def collect_data(path_to_repo, commit_shas):
 
 def compute_contrib_compl(path_to_repo, commit_shas):
     driller_commits, data = collect_data(path_to_repo, commit_shas)
-    _, driller_mods = zip(*data)
+    # _, driller_mods = zip(*data)
 
     # mod_metrics = [metrics_per_mod(m) for m in driller_mods]
     # dis_mod_metrics = [discretize_mod_metrics(m) for m in mod_metrics]
