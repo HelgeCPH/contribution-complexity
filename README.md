@@ -74,6 +74,11 @@ contribcompl = compute_contrib_compl(path_to_repo, commit_shas)
 print(contribcompl)
 ```
 
+----------------
+
+# Citing this work:
+
+See [CITATION.bib](https://github.com/HelgeCPH/contribution-complexity/blob/master/CITATION.bib).
 
 
 ----------------
