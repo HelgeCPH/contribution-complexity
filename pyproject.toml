@@ -23,7 +23,6 @@ exclude = ["data/", "experiment/"]
 python = "^3.9"
 docopt = "^0.6.2"
 PyDriller = "^1.15.5"
-toml = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
